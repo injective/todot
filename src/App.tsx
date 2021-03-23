@@ -1,12 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import './App.scss';
+import {TodoList} from './components/TodoList/TodoList';
+import {Task} from './types/interfaces';
 
-
-interface Task {
-    id: string
-    title: string
-    description: string
-}
 
 const arrayTasks: Array<Task>  = [
     { id: '1', title: 'learn JS', description: 'learn variables, arrays, objects, es6, etc' },
@@ -85,14 +81,14 @@ function App() {
             <div className="container">
                 <div className="row justify-content-center">
                     <div className="col-12 col-md-8 col-xl-6">
-                            <div className="mb-3">
-                                <label htmlFor="exampleInputEmail1" className="form-label">title</label>
-                                <input onChange={handleChangeTitle} value={taskTitle} type="email" className="form-control" id="exampleInputEmail1"/>
-                            </div>
-                            <div className="mb-3">
-                                <label htmlFor="exampleInputPassword1" className="form-label">description</label>
-                                <input onChange={handleChangeDescription} value={taskDescription} className="form-control" id="exampleInputPassword1"/>
-                            </div>
+                        <div className="mb-3">
+                            <label htmlFor="exampleInputEmail1" className="form-label">title</label>
+                            <input onChange={handleChangeTitle} value={taskTitle} type="email" className="form-control" id="exampleInputEmail1"/>
+                        </div>
+                        <div className="mb-3">
+                            <label htmlFor="exampleInputPassword1" className="form-label">description</label>
+                            <input onChange={handleChangeDescription} value={taskDescription} className="form-control" id="exampleInputPassword1"/>
+                        </div>
                         <button onClick={() => {isEdit ? submitEdit() : addTodoItem()} } className="btn btn-primary">{isEdit ? 'Edit' : 'Submit'}</button>
                     </div>
                 </div>
@@ -102,18 +98,11 @@ function App() {
                 <div className="row justify-content-center">
                     <div className="col-12 col-md-8 col-xl-6">
                         <ul className="list-group">
-                            {
-                                tasksArray.map(item => (
-                                    <li key={item.id} className="list-group-item">
-                                        <h2>{item.title}</h2>
-                                        <p>{item.description}</p>
-                                        <button onClick={() => editTask(item)} className="btn btn-info">edit</button>
-                                        <button onClick={() => removeTask(item.id)} className="btn btn-danger">remove</button>
-                                    </li>
-                                ))
-                            }
-
-
+                            <TodoList
+                                tasks={tasksArray}
+                                editTask={editTask}
+                                removeTask={removeTask}
+                            />
                         </ul>
                     </div>
                 </div>
